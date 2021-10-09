@@ -66,6 +66,10 @@ Improve consistency of default fonts in all browsers. (https://github.com/sindre
 }
 @font-face {
   font-family: 'Montserrat-Bold';
+  src: url("./fonts/Montserrat-SemiBold.ttf") format("opentype");
+}
+@font-face {
+  font-family: 'Montserrat-Bold';
   src: url("./fonts/Montserrat-Bold.ttf") format("opentype");
 }
 
@@ -86,8 +90,31 @@ p{
   font-family:Montserrat
 }
 
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px white inset;
+  -webkit-text-fill-color: #333;
+}
+
+::placeholder {
+  font-family:Montserrat;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.semibold {
+  font-family :Montserrat-SemiBold
+}
+
 .bold {
   font-family :Montserrat-Bold
+}
+
+.text-primary {
+  color: #72EEFF;
+}
+
+.bg-primary {
+  background-color: #72EEFF;
 }
 
 .gallery {

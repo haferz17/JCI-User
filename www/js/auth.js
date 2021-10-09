@@ -1,3 +1,5 @@
+const redirect = (path) => window.location.replace(path)
+
 async function getToken() {
     return await FCM.getToken()
 }

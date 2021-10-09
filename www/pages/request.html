@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="color-scheme" content="light dark">
+    <link rel="stylesheet" href="../css/tailwind.css">
+    <link rel="stylesheet" href="../css/bootstrap-icons.css">
+    <title>Request</title>
+</head>
+
+<body>
+    <div class="bg-white min-h-screen py-3 text-black relative overflow-y-auto scrollbar-hidden">
+        <div id="alert" />
+        <div class="px-5">
+            <p class="text-3xl my-5">Request Laundry</p>
+        </div>
+        <div class="mx-5 mb-5 border">
+            <p class="font-bold">Personal Info</p>
+            <p id="name" />
+            <p id="phone" />
+            <p id="address" />
+        </div>
+        <div class="w-full flex justify-center mb-5">
+            <button class="bg-gray-100 rounded-md w-1/2 b" onclick="openCamera()">
+                <div id="placeholder" class="flex flex-col items-center justify-center py-10">
+                    <i class="bi-camera text-gray-400 self-center text-4xl shadow-sm" id="placeholder2"></i>
+                    <p class="text-sm text-gray-400 mt-1 self-center">Add photo</p>
+                </div>
+                <img id="result" class="" />
+            </button>
+        </div>
+        <form action="javascript:request()" method="POST" class="flex flex-col mx-5">
+            <input class="bg-white border" name="note" id="note" placeholder="Note" />
+            <button class="bg-blue-400 text-white py-1 mt-5">Request</button>
+        </form>
+    </div>
+    <script src="../cordova.js"></script>
+    <script src="../js/request.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</body>
+
+</html>

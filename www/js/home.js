@@ -1,6 +1,92 @@
 document.addEventListener('deviceready', onDeviceReady, false);
+const { name, id } = JSON.parse(localStorage.getItem('user'))
 
 function onDeviceReady() {
-    const { name } = JSON.parse(localStorage.getItem('user'))
     $('#name').html(`Hi ${name}`)
+    fetchData()
+    fetchArticle()
+}
+
+function fetchData(reload) {
+    $.ajax({
+        url: getLaundryApi,
+        type: 'POST',
+        data: { filter: 4, id_user: id },
+        success: res => {
+            if (res.status) {
+                renderOngoing(res.data.slice(0, 1))
+                reload && window.location.reload()
+            }
+        }
+    })
+}
+
+function fetchArticle() {
+    $.ajax({
+        url: getArticleApi,
+        type: 'GET',
+        data: { pageSize: 3 },
+        success: res => {
+            if (res.status == 'ok') {
+                renderArticle(res.articles)
+            }
+        }
+    })
+}
+
+function renderOngoing(data) {
+    let html = ''
+    data.map(item => {
+        html = html + `
+        <a href="detail.html" class="bg-white py-3 px-1.5 border rounded-md flex items-center mt-2 mb-2">
+            <img src="${getStatus(item.status).icon}" class="w-14 mx-2" />
+            <div class="px-1 w-full flex justify-between">
+                <div>
+                    <p class="text-sm font-bold">Laundry #${item.id}</p>
+                    <p class="text-xs text-gray-500 my-0.5">${getStatus(item.status).text}</p>
+                    <p class="text-xs font-bold text-primary">${item.admin?.name ? `PIC. ${item.admin?.name}` : ''}</p>
+                    ${item.status == 'unconfirmed' ? `<button onClick="cancel('${item.id}')" class="bg-red-100 py-0.5 px-2 rounded-md mr-2 text-sm">
+                        <p class="capitalize">Cancel</p>
+                    </button>` : ''}
+                </div>
+                <div class="text-right">
+                    <p class="text-xs text-gray-500 mt-0.5">${moment(item.created_at).format('MMM DD')}</p>
+                </div>
+            </div>
+        </a>
+        `
+    })
+    html = $.parseHTML(html)
+    $("#ongoing").append(html)
+}
+
+function renderArticle(data) {
+    let html = ''
+    data.map(item => {
+        html = html + `
+        <div class="bg-white py-3 flex items-center border-b">
+            <img src="${item.urlToImage}" class="w-16 h-16 rounded-md" />
+            <div class="px-3 w-full">
+                <p class="text-sm font-bold line-2 mb-1">${item.title}</p>
+                <p class="text-xs text-primary">${item.source?.name}</p>
+            </div>
+        </div>
+        `
+    })
+    html = $.parseHTML(html)
+    $("#article").append(html)
+}
+
+function cancel(idLaundry) {
+    $.ajax({
+        url: `${getLaundryApi}/${idLaundry}`,
+        type: 'POST',
+        data: { status: 'canceled' },
+        success: res => {
+            if (res.status) {
+                fetchData('reload')
+                alert('Succesfully cancel laundry')
+            }
+        }
+    })
 }

@@ -13,20 +13,20 @@
 
 <body>
     <div class="bg-white min-h-screen py-3 text-black relative overflow-y-auto scrollbar-hidden">
-        <div class="px-5">
-            <p class="text-3xl my-5">My Activity</p>
+        <div class="px-5 flex items-center justify-between">
+            <p class="text-3xl my-4">My Activity</p>
+            <a href="request.html" class="bg-primary px-4 rounded-3xl py-1 flex items-center">
+                <p class="mr-2 mt-0.5 text-white font-bold">Request</p>
+                <i class="bi-bag-plus text-xl text-white font-bold"></i>
+            </a>
         </div>
-        <div id="list" />
-        <a href="request.html" class="bg-white shadow-md rounded-full px-4 py-3 absolute bottom-24 right-6">
-            <i class="bi-bag-plus text-2xl "></i>
-        </a>
-        <div
-            class="h-14 border bg-white border-gray-200 fixed bottom-3 left-16 right-16 rounded-3xl flex items-center shadow-lg">
+        <div id="list" class="px-5" />
+        <div class="left-0 w-full h-14 border-t bg-white fixed bottom-0 rounded-3xl flex items-center">
             <a href="home.html" class="w-1/2 flex justify-center h-full">
                 <i id="home" class="bi-house-door text-black self-center text-2xl"></i>
             </a>
             <a href="activities.html" class="w-1/2 flex justify-center h-full">
-                <i id="home" class="bi-basket text-black self-center text-2xl"></i>
+                <i id="home" class="bi-basket text-primary self-center text-2xl"></i>
             </a>
             <a href="profile.html" class="w-1/2 flex justify-center h-full">
                 <i id="person" class="bi-person text-black self-center text-2xl"></i>
@@ -36,6 +36,10 @@
     <script src="../cordova.js"></script>
     <script src="../js/activities.js"></script>
     <script src="../js/api.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"
+        integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </body>
 

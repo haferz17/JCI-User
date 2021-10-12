@@ -1,9 +1,12 @@
 document.addEventListener('deviceready', onDeviceReady, false)
 
 function onDeviceReady() {
+    localStorage.setItem('weight', '1')
+    $('#weight').html(1)
+    $('#price').html('Rp 15.000')
+    $('#total').html('Rp 15.000')
     const user = JSON.parse(localStorage.getItem('user'))
-    $('#name').html(`${user.name}`)
-    $('#phone').html(`${user.phone}`)
+    $('#user').html(`${user.name} ${user.phone ? `| ${user.phone}` : ''}`)
     $('#address').html(`${user.address}`)
 }
 
@@ -20,20 +23,29 @@ function openCamera() {
     })
 }
 
+function changeWeight(type) {
+    let weight = parseInt(localStorage.getItem('weight'))
+    if (type == '+') weight += 1
+    else { if (weight - 1 > 0) weight -= 1 }
+    localStorage.setItem('weight', weight)
+    $('#weight').html(weight)
+    $('#price').html(`Rp ${15 * weight}.000`)
+    $('#total').html(`Rp ${15 * weight}.000`)
+}
 
 function request() {
     const { id } = JSON.parse(localStorage.getItem('user'))
-    var note = $("input#note").val()
+    const weight = parseInt(localStorage.getItem('weight'))
+    const note = $("input#note").val()
 
     $.ajax({
         url: getLaundryApi,
         type: 'POST',
-        data: { id_user: id, note },
+        data: { id_user: id, note, weight },
         success: res => {
-            console.log("res", res)
             if (res.status) {
-                window.location.href = 'activities.html'
                 alert('Request Successfully')
+                redirect('back')
             }
         }
     })

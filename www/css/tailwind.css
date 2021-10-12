@@ -110,11 +110,37 @@ input:-webkit-autofill {
 }
 
 .text-primary {
-  color: #72EEFF;
+  color: #4babfa;
 }
 
 .bg-primary {
-  background-color: #72EEFF;
+  background-color: #4babfa;
+}
+
+.bg-soft {
+  background-color: #F6FCFE;
+}
+
+.bg-soft-2 {
+  background-color: #d5f5f8;
+}
+
+.bg-violet {
+  background-color: #E9EEFF;
+}
+
+.line-1 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+
+.line-2 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
 .gallery {

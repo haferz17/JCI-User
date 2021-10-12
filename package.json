@@ -54,5 +54,8 @@
       "browser",
       "android"
     ]
+  },
+  "dependencies": {
+    "moment": "^2.29.1"
   }
 }

@@ -21,14 +21,17 @@ function renderList(data) {
     let html = ''
     data.map(item => {
         html = html + `
-        <div class="flex items-center justify-between border-b-2 border-white w-full bg-blue-50">
-            <a href="detail.html?${item.id}" class="cursor-pointer w-full bg-blue-50 py-2 px-2 flex items-center justify-between border-b border-white">
-                <div>
-                    <p>${item.title}</p>
-                    <p class="text-sm text-blue-500">${item.description}</p>
-                    <p class="capitalize text-sm text-gray-600">${item.created_at}</p>
+        <div class="bg-white py-3 border-b flex items-center justify-between">
+            <div class="bg-yellow-100 h-10 w-10 flex items-center justify-center rounded-full">
+                <i class="bi-bell-fill text-xl text-yellow-500 font-bold"></i>
+            </div>
+            <div class="px-3 w-11/12">
+                <div class="flex items-center justify-between">
+                    <p class="text-sm font-bold">${item.title}</p>
+                    <p class="text-xs text-gray-500 mt-0.5">${moment(item.created_at).format('MMM DD')}</p>
                 </div>
-            </a>
+                <p class="text-xs text-gray-500 my-0.5">${item.description}</p>
+            </div>
         </div>
         `
     })

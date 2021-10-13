@@ -38,22 +38,24 @@ function renderOngoing(data) {
     let html = ''
     data.map(item => {
         html = html + `
-        <a href="detail.html" class="bg-white py-3 px-1.5 border rounded-md flex items-center mt-2 mb-2">
-            <img src="${getStatus(item.status).icon}" class="w-14 mx-2" />
-            <div class="px-1 w-full flex justify-between">
-                <div>
-                    <p class="text-sm font-bold">Laundry #${item.id}</p>
-                    <p class="text-xs text-gray-500 my-0.5">${getStatus(item.status).text}</p>
-                    <p class="text-xs font-bold text-primary">${item.admin?.name ? `PIC. ${item.admin?.name}` : ''}</p>
-                    ${item.status == 'unconfirmed' ? `<button onClick="cancel('${item.id}')" class="bg-red-100 py-0.5 px-2 rounded-md mr-2 text-sm">
-                        <p class="capitalize">Cancel</p>
-                    </button>` : ''}
+        <div class="relative">
+            <a href="detail.html?${item.id}" class="bg-white py-3 px-1 border rounded-md flex items-center mt-2 mb-2">
+                <img src="${getStatus(item.status).icon}" class="w-16 mx-2" />
+                <div class="px-1.5 w-full flex justify-between">
+                    <div>
+                        <p class="text-sm font-bold ${item.status == 'unconfirmed' ? '-mt-6' : ''}">Laundry #${item.id}</p>
+                        <p class="text-xs text-gray-500 my-0.5">${getStatus(item.status).text}</p>
+                        <p class="text-xs font-bold text-blue-500">${item.admin?.name ? `PIC. ${item.admin?.name}` : ''}</p>
+                    </div>
+                    <div class="text-right ${item.status == 'unconfirmed' ? '-mt-6' : ''}">
+                        <p class="text-xs text-gray-500 mt-0.5">${moment(item.created_at).format('MMM DD')}</p>
+                    </div>
                 </div>
-                <div class="text-right">
-                    <p class="text-xs text-gray-500 mt-0.5">${moment(item.created_at).format('MMM DD')}</p>
-                </div>
-            </div>
-        </a>
+            </a>
+            ${item.status == 'unconfirmed' ? `<button onClick="cancel('${item.id}')" class="absolute bottom-2.5 left-16 ml-7 bg-red-100 py-0.5 px-2 rounded-md mr-2 text-sm">
+                <p class="capitalize">Cancel</p>
+            </button>` : ''}
+        </div>
         `
     })
     html = $.parseHTML(html)

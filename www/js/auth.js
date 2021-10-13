@@ -33,7 +33,7 @@ function register() {
         success: res => {
             if (res.status) {
                 alert('Register Successfully')
-                window.location.href = 'login.html'
+                redirect('login.html')
             }
         }
     })

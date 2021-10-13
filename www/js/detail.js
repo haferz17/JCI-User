@@ -12,6 +12,7 @@ function fetchData(reload) {
         success: res => {
             if (res.status) {
                 renderDetail(res.data[0])
+                reload && window.location.reload()
             }
         }
     })
@@ -22,8 +23,8 @@ function renderDetail(data) {
     let html = `
     <div class="${getStatus(data.status).bg} min-h-screen text-black relative">
         <div class="px-5 pt-3">
-            <button onclick="redirect('back')">
-                <i class="bi-chevron-left text-xl -ml-0.5"></i>
+            <button onclick="redirect('back')" class="bg-white h-8 w-8 rounded-full shadow">
+                <i class="bi-chevron-left text-lg text-primary -ml-0.5"></i>
             </button>
             <div class="flex justify-center">
                 <img src="${getStatus(data.status).ill}" class="h-screen-30 my-5" />
@@ -36,7 +37,7 @@ function renderDetail(data) {
                 <p class="text-lg text-primary font-bold">Laundry #${data.id}</p>
                 <p class="text-sm text-gray-500">${moment(data.created_at).format('ll')}</p>
             </div>
-            <div class="bg-white border shadow-md rounded-md mb-3 py-2 flex items-center justify-around">
+            <div class="bg-white border shadow rounded-md mb-3 py-2 flex items-center justify-around">
                 <div class="w-${next ? '1/2' : 'full'} flex justify-${next ? 'center' : 'start'}">
                     <div class="flex items-center mt-1">
                         <img src="${getStatus(data.status).icon}" class="w-11 h-11 ${next ? '' : 'ml-3'}" />
@@ -57,14 +58,14 @@ function renderDetail(data) {
                     </div>
                 </div>`: ''}
             </div>
-            ${data.admin?.name ? `<div class="bg-white border shadow-md rounded-md mb-3 px-3 py-2">
+            ${data.admin?.name ? `<div class="bg-white border shadow rounded-md mb-3 px-3 py-2">
                 <div class="flex items-center">
                     <div class="w-12 h-12 rounded-full border mr-2">
-                        <img src="${data.user.avatar}" class="w-full rounded-full object-contain" />
+                        <img src="${data.admin.avatar}" class="w-12 h-12 rounded-full" />
                     </div>
                     <div>
                         <div class="flex items-center">
-                            <p class="font-bold">${data.user.name}</p>
+                            <p class="font-bold">${data.admin.name}</p>
                             <p class="text-xs ml-2 mr-1">4.7</p>
                             <i class="bi-star-fill text-sm text-yellow-500 mb-0.5"></i>
                         </div>
@@ -84,7 +85,7 @@ function renderDetail(data) {
                 <i class="bi-geo-alt text-lg text-red-500"></i>
                 <p class="ml-2">Pick up & Delivery Address</p>
             </div>
-            <div class="bg-white border shadow-md rounded-md px-3 py-2 mb-3 mt-0.5">
+            <div class="bg-white border shadow rounded-md px-3 py-2 mb-3 mt-0.5">
                 <p class="text-sm">${data.user.name} | ${data.user.phone}</p>
                 <p class="text-sm">${data.user.address}</p>
             </div>
@@ -92,7 +93,7 @@ function renderDetail(data) {
                 <i class="bi-bookmark-plus text-lg text-green-500"></i>
                 <p class="ml-2">Additional Information</p>
             </div>
-            <div class="bg-white border shadow-md rounded-md px-3 py-2 mb-5 mt-0.5">
+            <div class="bg-white border shadow rounded-md px-3 py-2 mb-5 mt-0.5">
                 ${data.image ? `<div class="w-full flex flex-col items-center my-3">
                     <div class="bg-gray-100 rounded-md w-1/2">
                         <img src="${data.image}" class="w-full" />
@@ -101,10 +102,28 @@ function renderDetail(data) {
                 <p class="text-yellow-500">Note</p>
                 <p class="text-sm">${data.note}</p>
             </div>`: '<div class="mb-5"/>'}
-        </div>
-        </div>
-        </div>
-    `
+            ${data.status == 'unconfirmed' ? `<button onclick="cancel('${data.id}')" class="bg-red-100 rounded-md px-3 py-2 mb-5 mt-5 w-full">
+                Cancel Request
+            </button>`: ''}
+        </div >
+        </div >
+    </div >
+        `
     html = $.parseHTML(html)
-    $("#head").append(html)
+    $("#content").append(html)
+}
+
+function cancel(idLaundry) {
+    $.ajax({
+        url: `${getLaundryApi}/${idLaundry}`,
+        type: 'POST',
+        data: { status: 'canceled' },
+        success: res => {
+            console.log("res", res)
+            if (res.status) {
+                alert('Succesfully cancel laundry')
+                fetchData('reload')
+            }
+        }
+    })
 }

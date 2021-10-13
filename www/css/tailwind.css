@@ -117,6 +117,10 @@ input:-webkit-autofill {
   background-color: #4babfa;
 }
 
+.bg-primary-2 {
+  background-color: #ACF8FF;
+}
+
 .bg-soft {
   background-color: #F6FCFE;
 }

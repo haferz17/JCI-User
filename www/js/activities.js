@@ -27,7 +27,7 @@ function renderList(data) {
         html = html + `
         ${index == 0 && item.status !== 'done' && item.status !== 'canceled' ? '<p>Ongoing</p>' : index == 0 ? '<p>Recent</p>' : ''}
         ${index == 1 && item.status !== 'unconfirmed' ? ongoing0 ? '<p>Recent</p>' : '' : ''}
-        <a href="detail.html" class="bg-${index !== 0 ? 'gray-50' : ongoing0 ? 'white' : 'gray-50'} py-2.5 px-1 border rounded-md flex items-center mt-${index == 0 || index == 1 ? '2' : '0'} mb-${index == data.length - 1 ? '14' : '2'}">
+        <a href="detail.html?${item.id}" class="bg-${index !== 0 ? 'gray-50' : ongoing0 ? 'white' : 'gray-50'} py-2.5 px-1 border rounded-md flex items-center mt-${index == 0 || index == 1 ? '2' : '0'} mb-${index == data.length - 1 ? '14' : '2'}">
             <img src="${getStatus(item.status).icon}" class="w-16 mx-2" />
             <div class="px-1.5 w-full flex justify-between">
                 <div>

@@ -125,8 +125,40 @@ input:-webkit-autofill {
   background-color: #d5f5f8;
 }
 
+.bg-soft-3 {
+  background-color: #E1DAFF;
+}
+
+.to-soft-3 {
+  --tw-gradient-to: #ccc1ff;
+}
+
+.bg-soft-4 {
+  background-color: #FFCEC5;
+}
+
+.to-soft-4 {
+  --tw-gradient-to: #ffafa1;
+}
+
+.bg-soft-5 {
+  background-color: #F5D2E8;
+}
+
+.to-soft-5 {
+  --tw-gradient-to: #f7b5df;
+}
+
 .bg-violet {
   background-color: #E9EEFF;
+}
+
+.h-screen-30 {
+  height: 30vh;
+}
+
+.h-screen-56 {
+  height: 56vh;
 }
 
 .line-1 {

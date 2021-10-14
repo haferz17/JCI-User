@@ -1,11 +1,11 @@
 document.addEventListener('deviceready', onDeviceReady, false)
+const user = JSON.parse(localStorage.getItem('user'))
 
 function onDeviceReady() {
     localStorage.setItem('weight', '1')
     $('#weight').html(1)
     $('#price').html('Rp 15.000')
     $('#total').html('Rp 15.000')
-    const user = JSON.parse(localStorage.getItem('user'))
     $('#user').html(`${user.name} ${user.phone ? `| ${user.phone}` : ''}`)
     $('#address').html(`${user.address}`)
 }
@@ -34,19 +34,20 @@ function changeWeight(type) {
 }
 
 function request() {
-    const { id } = JSON.parse(localStorage.getItem('user'))
-    const weight = parseInt(localStorage.getItem('weight'))
-    const note = $("input#note").val()
+    if (user.phone && user.address) {
+        const weight = parseInt(localStorage.getItem('weight'))
+        const note = $("input#note").val()
 
-    $.ajax({
-        url: getLaundryApi,
-        type: 'POST',
-        data: { id_user: id, note, weight },
-        success: res => {
-            if (res.status) {
-                alert('Request Successfully')
-                redirect('back')
+        $.ajax({
+            url: getLaundryApi,
+            type: 'POST',
+            data: { id_user: user.id, note, weight },
+            success: res => {
+                if (res.status) {
+                    alert('Request Successfully')
+                    redirect('back')
+                }
             }
-        }
-    })
+        })
+    } else alert('Phone and address cannot be empty. Please update your profile first.')
 }

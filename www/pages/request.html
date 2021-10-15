@@ -56,13 +56,14 @@
                 <p class="ml-2">Additional Information</p>
             </div>
             <div class="w-full flex flex-col items-center my-3">
-                <button class="bg-gray-100 rounded-md w-1/2 b" onclick="openCamera()">
-                    <div id="placeholder" class="flex flex-col items-center justify-center py-10">
-                        <i class="bi-camera text-gray-400 self-center text-4xl shadow-sm" id="placeholder2"></i>
-                        <p class="text-sm text-gray-400 mt-1 self-center">Add photo</p>
-                    </div>
-                    <img id="result" class="" />
-                </button>
+                <div class="relative w-40 h-40 bg-gray-100 flex items-center justify-center">
+                    <p id="placeholder" class="text-sm text-gray-400 mt-1 absolute">Add photo</p>
+                    <img id="result" class="w-40 h-40" />
+                    <button onclick="openCamera()"
+                        class="flex flex-col items-center justify-center bg-primary absolute bottom-1 right-1 h-10 w-10 rounded-full">
+                        <i class="bi-camera text-white text-xl" id=""></i>
+                    </button>
+                </div>
             </div>
             <p>Note</p>
             <input class="bg-white border-b pt-1 pb-2 outline-none w-full" name="note" id="note"

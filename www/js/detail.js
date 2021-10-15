@@ -61,7 +61,7 @@ function renderDetail(data) {
             ${data.admin?.name ? `<div class="bg-white border shadow rounded-md mb-3 px-3 py-2">
                 <div class="flex items-center">
                     <div class="w-12 h-12 rounded-full border mr-2">
-                        <img src="${data.admin.avatar}" class="w-12 h-12 rounded-full" />
+                        <img src="${data.avatar_admin}" class="w-12 h-12 rounded-full" />
                     </div>
                     <div>
                         <div class="flex items-center">
@@ -119,9 +119,8 @@ function cancel(idLaundry) {
         type: 'POST',
         data: { status: 'canceled' },
         success: res => {
-            console.log("res", res)
             if (res.status) {
-                alert('Succesfully cancel laundry')
+                toast('Succesfully cancel laundry')
                 fetchData('reload')
             }
         }

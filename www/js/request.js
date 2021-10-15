@@ -3,6 +3,7 @@ const user = JSON.parse(localStorage.getItem('user'))
 
 function onDeviceReady() {
     localStorage.setItem('weight', '1')
+    localStorage.setItem('imgLaundry', '')
     $('#weight').html(1)
     $('#price').html('Rp 15.000')
     $('#total').html('Rp 15.000')
@@ -13,10 +14,11 @@ function onDeviceReady() {
 function openCamera() {
     navigator.camera.getPicture((res) => {
         $('#result').attr('src', 'data:image/png;base64, ' + res)
-        document.getElementById('result').setAttribute('src', 'data:image/png;base64, ' + s)
+        localStorage.setItem('imgLaundry', `data:image/png;base64, ${res}`)
+        $('#placeholder').html(``)
     }, (e) => {
     }, {
-        quality: 60,
+        quality: 10,
         cameraDirection: 1,
         destinationType: 0,
         correctOrientation: true
@@ -37,17 +39,18 @@ function request() {
     if (user.phone && user.address) {
         const weight = parseInt(localStorage.getItem('weight'))
         const note = $("input#note").val()
+        const image = localStorage.getItem('imgLaundry') || ''
 
         $.ajax({
             url: getLaundryApi,
             type: 'POST',
-            data: { id_user: user.id, note, weight },
+            data: { id_user: user.id, note, weight, image },
             success: res => {
                 if (res.status) {
-                    alert('Request Successfully')
+                    toast('Request Successfully')
                     redirect('back')
                 }
             }
         })
-    } else alert('Phone and address cannot be empty. Please update your profile first.')
+    } else toast('Phone and address cannot be empty. Please update your profile first.')
 }
